@@ -68,8 +68,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `passwd`, `tel`, `name`, `admin`, `create_at`, `last_login`) VALUES
-(1, 'koki.ohsato.5b@stu.hosei.ac.jp', 'scrypt:32768:8:1$1IMn5ispw0KF52XS$5fc184cc8ddbd7c573c02e4539745cb7a466aaa6dbee280b62e2899e3c43c9103f125d6e5d543c3ea565fcf53c00580ff2e1b512d3197dd7c2af855c7b6edf71', '1234567890', '大里恒貴', 1, '2024-12-17 13:41:43', '2025-01-12 15:48:18'),
-(9, 'ok@ok', 'scrypt:32768:8:1$joI0kQof0VTno65q$dd6632a46669caf287802ced2fb5dfe866f81bcc14e6bb36de65981769a071c07417cd77baafc00f37aa498471adf3f371de4ee0274e9c0313858b547ebef7d9', '1234567890', '特別枠', NULL, '2024-12-17 16:07:51', '2025-01-12 15:48:46');
+(1, 'sato@sato', 'scrypt:32768:8:1$1IMn5ispw0KF52XS$5fc184cc8ddbd7c573c02e4539745cb7a466aaa6dbee280b62e2899e3c43c9103f125d6e5d543c3ea565fcf53c00580ff2e1b512d3197dd7c2af855c7b6edf71', '1234567890', 'sato', 1, '2024-12-17 13:41:43', '2025-01-12 16:24:06'),
+(9, 'ok@ok', 'scrypt:32768:8:1$joI0kQof0VTno65q$dd6632a46669caf287802ced2fb5dfe866f81bcc14e6bb36de65981769a071c07417cd77baafc00f37aa498471adf3f371de4ee0274e9c0313858b547ebef7d9', '1234567890', 'ok', NULL, '2024-12-17 16:07:51', '2025-01-12 15:48:46');
 
 --
 -- ダンプしたテーブルのインデックス
