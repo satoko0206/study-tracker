@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <style>
+
+
+main h1 {
+  font-size: 1.8em;
+  color: #9C9B9A;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 游ゴシック体, YuGothic, 游ゴシック, "Yu Gothic", sans-serif;;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+input[type="date"],
+button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #84b2e0;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+form button{
+        margin: 0 auto 20px;
+        width: 150px;
+        padding: auto;
+        text-align: center;
+        padding: 10px 20px; 
+        display: inline-block; 
+        background-color:rgb(255, 255, 255);
+        color:inherit; 
+        cursor: pointer; 
+        border-radius: 100vw; 
+        border-color: #1285C5;
+        border-width: 1.5px; 
+        border-style: solid;
+    }
+
+    button:hover{
+        border-style: dotted;
+    }
+
+p {
+  margin-top: 15px;
+  text-align: center;
+  color: #28a745;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  main {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+}
+  </style>
+</head>
+
+<body>
+  {% extends 'base.html' %}
+
+{% block content %}
+<main>
+  <h1>学習記録追加</h1>
+<form method="POST">
+    <label for="category">カテゴリ:</label>
+    <input type="text" name="category" required><br>
+    <label for="start_time">開始時刻:</label>
+    <input type="datetime-local" name="start_time" required><br>
+    <label for="end_time">終了時刻:</label>
+    <input type="datetime-local" name="end_time" required><br>
+    <label for="study_date">学習日:</label>
+    <input type="date" name="study_date" required><br>
+    <button type="submit">記録を追加</button>
+</form>
+{% if msg %}
+    <p>{{ msg }}</p>
+{% endif %}
+{% endblock %}
+</main>
+
+
+</body>
+</html>

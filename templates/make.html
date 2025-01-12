@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .register-container {
+      width: 100%;
+      max-width: 400px;
+      margin: 20px;
+      padding: 20px;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    h1 {
+      font-size: 20px;
+      color: #464646;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: rgb(70,76,98);
+      font-size: 14px;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"],
+    button {
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+
+    .message {
+      font-size: 14px;
+      color: #522C1D;
+      margin-top: 10px;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .login-link a,
+    .login-link{
+      color: #522C1D; 
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="register-container">
+    <h1>新規ユーザー登録</h1>
+    <form method="POST">
+      <label for="email">メールアドレス:</label>
+      <input type="email" name="email" id="email" required>
+
+      <label for="passwd">パスワード:</label>
+      <input type="password" name="passwd" id="passwd" required>
+
+      <label for="name">名前:</label>
+      <input type="text" name="name" id="name" required>
+
+      <label for="tel">電話番号:</label>
+      <input type="text" name="tel" id="tel" required>
+
+      <button type="submit">登録</button>
+    </form>
+    {% if msg %}
+      <p class="message">{{ msg }}</p>
+    {% endif %}
+    <p class="login-link">すでにアカウントをお持ちですか？ <a href="/login">ログインページへ</a></p>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+@charset "utf-8";
+/*common*/
+main{
+  max-width: 100%;
+  width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: #F8F6ED;
+  color: #1285C5;
+  font-family: 游ゴシック体, YuGothic, 游ゴシック, "Yu Gothic", sans-serif;;
+  box-sizing: border-box;
+}
+
+

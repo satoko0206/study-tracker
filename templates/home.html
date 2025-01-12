@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>勉強記録</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <style>
+    table{
+        margin: 0 auto;
+    }
+
+    h1 {
+      font-weight: 800;
+    }
+
+    p {
+      font-weight: 400;
+    }
+
+    .welcome-message {
+        position: fixed;
+        top: -100px; /* 初期位置を画面外に設定 */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color:rgb(255, 255, 255);
+        color:  inherit;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 14px;
+        border-color:  #1285C5;
+        border-width: 1.5px; 
+        border-style: solid;
+        z-index: 1000;
+        opacity: 1;
+        animation: slideDown 1s forwards, fadeOut 1s 4s forwards; 
+    }
+
+    div a button{
+        margin: 0 auto 20px;
+        width: 150px;
+        text-align: center;
+        padding: 10px 20px; 
+        display: inline-block; 
+        background-color:rgb(255, 255, 255);
+        color:inherit; 
+        cursor: pointer; 
+        border-radius: 100vw; 
+        border-color:  #1285C5;
+        border-width: 1.5px; 
+        border-style: solid;
+    }
+
+    button:hover{
+        border-style: dotted;
+    }
+
+    canvas{
+        max-width: 1200px;
+        width: 80%;
+        margin: 20px auto 0;
+
+    }
+
+    .record-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #fff;
+        overflow: hidden;
+        }
+
+    .record-row {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    }
+
+    .record-row:last-child {
+    border-bottom: none;
+    }
+
+    .record-column {
+    flex: 1;
+    text-align: center;
+    padding: 5px;
+    }
+
+    .record-row:first-child {
+    background-color: #84b2e0;
+    color: white;
+    }
+
+    .record-row:not(:first-child) {
+    background-color: #f9f9f9;
+    }
+
+
+
+        @keyframes slideDown {
+            from {
+                top: -100px;
+            }
+            to {
+                top: 20px;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+  <div class="welcome-message" id="welcomeMessage">
+      <strong>ようこそ、{{ name }} さん！</strong>
+  </div>
+  {% extends "base.html" %}
+  {% block content %}
+
+   <main>
+  <div class="record-container">
+    <div class="record-row">
+      <div class="record-column">期間</div>
+      <div class="record-column">今日</div>
+      <div class="record-column">今週</div>
+      <div class="record-column">今月</div>
+    </div>
+    <div class="record-row" border="1">
+      <div class="record-column">勉強時間(分)</div>
+      <div class="record-column">{{ daily_time }}</div>
+      <div class="record-column">{{ weekly_time }}</div>
+      <div class="record-column">{{ monthly_time }}</div>
+    </div>
+  </div>
+
+  <div>
+      <canvas id="studyTimeChart"></canvas> 
+  </div>
+
+  <div style="margin-top: 20px; text-align: center; display: flex; justify-content: center;">
+      <a href="{{ url_for('weekly_study_graph') }}">
+          <button>
+              詳細を見る
+          </button>
+      </a>
+  </div>
+   </main>
+  
+
+  <script>
+    // Flask から渡された値をそのまま文字列としてJavaScriptに格納
+    let dailyTime = "{{ daily_time }}";
+    let weeklyTime = "{{ weekly_time }}";
+    let monthlyTime = "{{ monthly_time }}";
+
+    // JavaScript側で数値に変換（必要に応じて）
+    dailyTime = parseInt(dailyTime) || 0;
+    weeklyTime = parseInt(weeklyTime) || 0;
+    monthlyTime = parseInt(monthlyTime) || 0;
+
+    setTimeout(function() {
+        const message = document.getElementById('welcomeMessage');
+        if (message) {
+            message.style.display = 'none'; 
+        }
+    }, 5000); 
+  </script>
+  {% endblock %}
+</body>
+</html>

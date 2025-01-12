@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登録内容確認</title>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .confirm-container {
+            max-width: 500px;
+            width: 90%;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            color: #464646;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .table-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .table-container div {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            padding: 5px 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .table-container div span{
+            color:  #522C1D;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 0 auto;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        button {
+            flex: 1;
+            width: 200px;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        button.cancel {
+            background-color: #888;
+        }
+
+        button.cancel:hover {
+            background-color: #666;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="confirm-container">
+        <h1>登録内容の確認</h1>
+        <p>以下の内容で登録します。確認してください。</p>
+
+        <div class="table-container">
+            <div>
+                <span>メールアドレス:</span>
+                <span>{{ email }}</span>
+            </div>
+            <div>
+                <span>名前:</span>
+                <span>{{ name }}</span>
+            </div>
+            <div>
+                <span>電話番号:</span>
+                <span>{{ tel }}</span>
+            </div>
+        </div>
+
+        <div class="buttons-container">
+            <form method="POST" action="/make" style="flex: 1;">
+                <input type="hidden" name="email" value="{{ email }}">
+                <input type="hidden" name="passwd" value="{{ passwd }}">
+                <input type="hidden" name="name" value="{{ name }}">
+                <input type="hidden" name="tel" value="{{ tel }}">
+                <button type="submit" name="confirm">登録</button>
+            </form>
+
+            <form method="GET" action="/make" style="flex: 1;">
+                <button type="submit" class="cancel">キャンセル</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

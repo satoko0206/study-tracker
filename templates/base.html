@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学習管理アプリ</title>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        a:link, :visited, :hover, :active, :focus{
+            color: #1285C5;
+        }
+
+        header nav{
+            display: flex;
+            justify-content: space-between;
+
+        }
+
+
+        header a{
+            text-align: center;
+            text-decoration-line: none;            
+            margin:0 20px;
+            font-family: 游ゴシック体, YuGothic, 游ゴシック, "Yu Gothic", sans-serif;
+            font-weight: 600;
+            font-size: 1.08rem;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        header a::after{
+            content: '';
+            position: absolute;
+            left: 50%; /* 中央開始 */
+            bottom: 0; /* テキストの下に配置 */
+            width: 0; /* 初期幅は0 */
+            height: 2px; /* 下線の太さ */
+            background-color: #1285C5; /* 下線の色 */
+            transition: width 0.5s ease, left 0.5s ease;
+        }
+
+        header a:hover::after{
+            width: 100%; 
+            left: 0; 
+        }
+
+        header{
+            margin: 0 0 20px;
+            width: 100%;
+            height: auto;
+            padding: 20px 0 20px;
+            border-bottom: 1px solid #1285C5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>              
+            <a href="/home" style="margin-left: 30px;">Home</a>
+            <div class="nav-links">
+                <a href="/add_study_record">Add Record</a>
+                <a href="/view_study_records">Check Record</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

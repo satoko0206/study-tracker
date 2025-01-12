@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <style>
+    a:link, :visited, :hover, :active, :focus{
+        color: #1285C5;
+    }
+
+    header{
+      border-bottom: 1px solid #1285C5;
+      font-family: 游ゴシック体, YuGothic, 游ゴシック, "Yu Gothic", sans-serif;;
+      font-weight: 600;
+      font-size: 1.08rem;
+      padding: 15px;
+      /* height: 80px; */
+    }
+
+    header nav{
+      display: flex;
+      justify-content: space-between;
+    }
+
+    header nav a{
+      text-decoration-line: none;            
+      font-family: 游ゴシック体, YuGothic, 游ゴシック, "Yu Gothic", sans-serif;
+      font-weight: 600;
+      font-size: 1.08rem;
+      line-height: 2.2;
+      margin-right: 20px;
+      position: relative;
+    }
+
+    header nav a::after{
+      content: '';
+      position: absolute;
+      left: 50%; /* 中央開始 */
+      bottom: 0; /* テキストの下に配置 */
+      width: 0; /* 初期幅は0 */
+      height: 2px; /* 下線の太さ */
+      background-color: #1285C5; /* 下線の色 */
+      transition: width 0.5s ease, left 0.5s ease;
+    }
+
+    header nav a:hover::after{
+      width: 100%; 
+      left: 0; 
+    }
+
+    header nav h1{
+      margin-left: 20px;
+    }
+
+    main{
+      max-width: 100%;
+      width: 1200px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    body{
+      background-color: #F8F6ED;
+      color: #1285C5;
+      font-family: 游ゴシック体, YuGothic, 游ゴシック, "Yu Gothic", sans-serif;;
+      box-sizing: border-box;
+    }
+
+    main h2{
+      margin: 10px 0 10px;
+    }
+
+    .card dl {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+      }
+      .card dt {
+        width: 38%;
+        font-weight: bold;
+      }
+      .card dd {
+        width: 62%;
+        /* margin-left: 10px; */
+      }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 0 auto;
+    }
+    .card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      width: 32%;
+      max-width: 400px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      
+    }
+    .card h3 {
+      margin-top: 0;
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    .button-container button {
+      padding: 5px 10px;
+      background-color:rgb(255, 255, 255);
+      color: inherit;
+      border: none;
+      border-radius: 100vw;
+      cursor: pointer;
+      border-color: #1285C5;
+      border-width: 1.5px; 
+      border-style: solid;
+    }
+    .button-container button:hover {
+      border-style: dotted;
+    }
+    .card p {
+      margin: 5px 0;
+    }
+
+    #deleteModal{
+      display: none;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    #deletebutton{
+      width: 120px;
+      background-color: #1285C5;
+      color: white;
+      border-radius: 100vw;
+      border: 1.5px solid #1285C5;
+      padding: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    #deletebutton:hover {
+      background-color: white;
+      color: #1285C5;
+    }
+
+    #cancelbutton{
+      width: 120px;
+      background-color: white;
+      color: #1285C5;
+      border-radius: 100vw;
+      border: 1.5px solid #1285C5;
+      padding: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    #cancelbutton:hover {
+      background-color: #1285C5;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <h1>Admin</h1>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    
+  </header>
+
+  <main>
+  <h2>ユーザー一覧</h2>
+  <div class="container">
+    {% for user in users %}
+    <div class="card">
+      <h3>ユーザー情報</h3>
+      <dl>
+        <dt>ID:</dt>
+        <dd>{{ user[0] }}</dd>
+    
+        <dt>名前:</dt>
+        <dd>{{ user[1] }}</dd>
+    
+        <dt>メールアドレス:</dt>
+        <dd>{{ user[2] }}</dd>
+    
+        <dt>電話番号:</dt>
+        <dd>{{ user[3] }}</dd>
+    
+        <dt>管理者:</dt>
+        <dd>{{ "はい" if user[4] else "いいえ" }}</dd>
+    
+        <dt>最終ログイン:</dt>
+        <dd>{{ user[5] if user[5] else "未ログイン" }}</dd>
+    
+        <dt>勉強時間:</dt>
+        <dd>
+          {% for study_time in study_times %}
+            {% if study_time[0] == user[0] %}
+              {{ study_time[2] if study_time[2] else 0 }}
+            {% endif %}
+          {% endfor %} 分
+        </dd>
+      </dl>
+
+      <div class="button-container">
+        {% if user[4] %} <!-- user[4]が管理者フラグ -->
+          <button type="button" disabled style="cursor: not-allowed; background-color: #d3d3d3; color: #777;">
+            削除不可
+          </button>
+        {% else %}
+          <button type="button" onclick="openModal(`{{ url_for('delete_user', user_id=user[0]) }}`)">
+            削除
+          </button>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+
+
+  <!-- モーダル（初期状態は非表示） -->
+  <div id="deleteModal">
+    <div>
+      <div style=" margin: 15% auto; width: 400px; background-color: white; padding: 20px; border-radius: 8px;">
+        <div style="margin: 0 auto;">
+          <h3 style="margin-bottom: 20px;">本当にこのユーザーを削除しますか？</h3>
+          <form id="deleteForm" method="POST" style="display: flex; justify-content: space-between;">
+            <button id="deletebutton" type="submit">削除</button>
+            <button id="cancelbutton" type="button" onclick="closeModal()">キャンセル</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  </main>
+  
+  <script>
+    function openModal(deleteUrl) {
+      const modal = document.getElementById('deleteModal'); // モーダル要素を取得
+      const form = document.getElementById('deleteForm');   // モーダル内のフォームを取得
+
+      console.log(deleteUrl);
+
+      // フォームのaction属性を設定
+      form.action = deleteUrl;
+
+      // モーダルを表示
+      modal.style.display = 'block';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('deleteModal');
+      modal.style.display = 'none'; // モーダルを非表示にする
+    }
+  </script>
+</body>
+</html>

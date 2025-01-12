@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1週間の勉強時間グラフ</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+    <script src="{{ url_for('static', filename='js/script2.js') }}" defer></script> 
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <style>
+    html, body{
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    canvas{
+      max-width: 80%;
+ 
+      flex-grow: 1;
+      margin: 0;
+    }
+
+    main h1 {
+      font-size: 1.8em;
+      color: #9C9B9A;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .graph-container {
+      width: 80%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center; 
+      justify-content: center;
+      gap: 10px; 
+    }
+
+    .graph-button {
+        width: auto;
+        text-align: center;
+        padding: 10px 20px; 
+        display: inline-block; 
+        background-color:rgb(255, 255, 255);
+        color:inherit; 
+        cursor: pointer; 
+        border-radius: 50%; 
+        border-color:  #1285C5;
+        border-width: 1.5px; 
+        border-style: solid;
+    }
+
+    .graph-button:hover {
+      border-style: dotted;
+    }
+  </style>
+</head>
+<body>
+  {% extends "base.html" %}
+
+  {% block title %}ホーム{% endblock %}
+
+  {% block content %}
+  <main>
+    <h1>1週間の勉強時間</h1>
+
+    <div class="graph-container">
+      <button id="prevWeekButton" class="graph-button">＜</button>
+      <canvas id="studyTimeChart"></canvas>
+      <button id="nextWeekButton" class="graph-button">＞</button>
+    </div>
+
+
+    <script>
+        var studyDays = JSON.parse('{{ days|tojson|safe }}');
+        var studyTimes = JSON.parse('{{ study_times|tojson|safe }}');
+    </script>
+      {% endblock %}
+  </main>
+    
+
+</body>
+</html>

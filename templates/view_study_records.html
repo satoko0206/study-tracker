@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <style>
+main h1 {
+  font-size: 1.8em;
+  color: #9C9B9A;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.flex-table {
+  display: flex;
+  flex-direction: column;
+  border-spacing: 0;
+  font-size: 14px;
+  border-radius: 5px;
+  overflow: hidden; 
+  width: auto;
+  margin: 0 auto;
+}
+
+.flex-table-header {
+  display: flex;
+  background: #84b2e0;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0px 1px 1px rgba(255,255,255,0.3) inset;
+}
+
+.flex-table-header .cell {
+  flex: 1; 
+  padding: 8px 15px;
+  border-left: 1px solid #84b2e0;
+  border-top: 1px solid #84b2e0;
+  border-bottom: 1px solid #84b2e0;
+}
+
+.flex-table-header .cell:first-child {
+  border-radius: 5px 0 0 0;
+  border-left: none;
+}
+
+.flex-table-header .cell:last-child {
+  border-radius: 0 5px 0 0;
+  border-right: 1px solid #258;
+}
+
+.flex-table-row {
+  display: flex;
+  background: #fff;
+  transition: background 0.3s;
+}
+
+.flex-table-row:nth-child(odd) {
+  background: #f1f6fc;
+}
+
+.flex-table-row:hover {
+  background: #bbd4ee;
+  cursor: pointer;
+}
+
+.flex-table-row .cell {
+  flex: 1; 
+  padding: 8px 15px;
+  border-bottom: 1px solid #84b2e0;
+  border-left: 1px solid #84b2e0;
+  text-align: center;
+}
+
+.flex-table-row .cell:last-child {
+  border-right: 1px solid #84b2e0;
+  box-shadow: 2px 2px 1px rgba(0,0,0,0.1);
+}
+
+.flex-table-row:last-child .cell:first-child {
+  border-radius: 0 0 0 5px;
+}
+
+.flex-table-row:last-child .cell:last-child {
+  border-radius: 0 0 5px 0;
+}
+  </style>
+
+</head>
+<body>
+  {% extends 'base.html' %}
+
+  {% block content %}
+
+  <main>
+    <h1>学習記録一覧</h1>
+  <div class="flex-table">
+    <!-- ヘッダー -->
+    <div class="flex-table-header">
+      <div class="cell">カテゴリ</div>
+      <div class="cell">開始時刻</div>
+      <div class="cell">終了時刻</div>
+      <div class="cell">学習日</div>
+      <div class="cell">学習時間 (分)</div>
+    </div>
+  
+    <!-- データ行 -->
+    {% for record in study_records %}
+    <div class="flex-table-row">
+      <div class="cell">{{ record[0] }}</div>
+      <div class="cell">{{ record[1] }}</div>
+      <div class="cell">{{ record[2] }}</div>
+      <div class="cell">{{ record[3] }}</div>
+      <div class="cell">{{ record[4] }}</div>
+    </div>
+    {% else %}
+    <div class="flex-table-row">
+      <div class="cell" colspan="5">学習記録がありません。</div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endblock %}
+  </main>
+  
+  </body>
+</html>

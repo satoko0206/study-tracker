@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ログイン</title>
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .main-container {
+            display: flex;
+            justify-content: space-around;
+            max-width: 800px;
+            margin: 50px auto; 
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden; /* はみ出しを防止 */
+            flex-wrap: wrap;
+        }
+
+        .form-container {
+            flex: 1; 
+            padding: 20px;
+            background-color: #f9f9f9;
+            min-width: 300px;
+        }
+
+        .form-container h1 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: rgb(70,76,98);
+            text-align: center;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color:rgb(70,76,98);
+            font-size: 14px;
+        }
+
+        input[type="email"], 
+        input[type="password"], 
+        input[type="submit"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 340px;
+        }
+
+        input[type="submit"] {
+            background-color: rgb(25,25,25);
+            color: rgb(255,255,255);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #444;
+        }
+
+        .info-container {
+            flex: 1; 
+            padding: 20px;
+            background-color: #f9f9f9; 
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-width: 300px;
+        }
+
+        .info-container h2{
+          color: #464646;
+          margin-bottom: 10px;
+          font-size: 20px;
+
+        }
+
+        .info-container p{
+          color: #464646;
+          margin-bottom: 20px;
+          font-size: 14px;
+        }
+
+        .info-container a {
+          width: 340px;
+            display: inline-block;
+            margin-bottom: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: rgb(255,255,255);
+            background-color: rgb(25,25,25);
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .info-container a:hover {
+            background-color: #444;
+        }
+
+        .info-container p {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+      .main-container {
+        flex-direction: column; 
+      }
+
+      .form-container,
+      .info-container {
+        flex: none; 
+        width: 100%; 
+      }
+
+      input[type="email"],
+      input[type="password"],
+      input[type="submit"],
+      .info-container a {
+        max-width: 100%;/
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="main-container">
+  <div class="form-container">
+      <h1>会員の方へ</h1>
+      <form action="login" method="POST">
+          <div class="form-group">
+              <label for="email">メールアドレス</label>
+              <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+              <label for="passwd">パスワード</label>
+              <input type="password" id="passwd" name="passwd" required>
+          </div>
+          <div class="form-group">
+              <input type="submit" value="ログインする">
+          </div>
+          {% if msg %}
+            <p style="color: #522C1D; font-size: 12px;">{{ msg }}</p>
+          {% endif %}
+      </form>
+  </div>
+
+  <div class="info-container">
+    <h2>はじめてご利用の方</h2>
+    <p>ご利用には会員登録が必要です</p>
+    <a href="make">新規作成</a>
+  </div>
+</div>
+</body>
+</html>
